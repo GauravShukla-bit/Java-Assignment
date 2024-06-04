@@ -1,0 +1,32 @@
+import java.util.concurrent.locks.*;
+
+class ConferenceRoomBookingJob {
+    private static final Lock roomLock = new ReentrantLock();
+    private static boolean roomAvailable = true;
+
+    public static void bookRoom(String managerName) {
+        roomLock.lock();
+        try {
+            if (roomAvailable) {
+                System.out.println(managerName + " booked the conference room.");
+                roomAvailable = false;
+            } else {
+                System.out.println(managerName + " couldn't book the room (already booked).");
+            }
+        } finally {
+            roomLock.unlock();
+        }
+    }
+}
+
+public class Managers {
+    public static void main(String[] args) {
+        ConferenceRoomBookingJob bookingJob = new ConferenceRoomBookingJob();
+
+        Thread manager1 = new Thread(() -> bookingJob.bookRoom("Manager 1"));
+        Thread manager2 = new Thread(() -> bookingJob.bookRoom("Manager 2"));
+
+        manager1.start();
+        manager2.start();
+    }
+}

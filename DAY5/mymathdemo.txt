@@ -1,0 +1,21 @@
+package com.ey.ui;
+
+import com.ey.util.MyMath;
+
+public class MyMathDemo {
+
+    public static void main(String[] args) {
+        int number = 28;
+        
+        System.out.println("Is " + number + " a perfect number? " + MyMath.isPerfectNumber(number));
+        System.out.println("Factorial of " + number + " is: " + MyMath.factorial(number));
+        System.out.println("Is " + number + " a prime number? " + MyMath.isPrime(number));
+        System.out.println("Sum of prime numbers up to " + number + " is: " + MyMath.sumOfPrimes(number));
+        System.out.println("Is " + number + " an Armstrong number? " + MyMath.isArmstrongNumber(number));
+        System.out.println("Reverse of " + number + " is: " + MyMath.reverseNumber(number));
+        System.out.println("Binary representation of " + number + " is: " + MyMath.decimalToBinary(number));
+        System.out.println("Decimal representation of binary " + number + " is: " + MyMath.binaryToDecimal(MyMath.decimalToBinary(number)));
+        System.out.println("Sum of first " + number + " Fibonacci numbers is: " + MyMath.getSumOfNfibos(number));
+        System.out.println("Is " + number + " a palindrome number? " + MyMath.isPalindromeNumber(number));
+    }
+}

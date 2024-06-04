@@ -1,0 +1,96 @@
+package com.ey.util;
+
+public class MyMath {
+
+    public static boolean isPerfectNumber(int n) {
+        if (n <= 0)
+            return false;
+        
+        int sum = 0;
+        for (int i = 1; i < n; i++) {
+            if (n % i == 0)
+                sum += i;
+        }
+        return sum == n;
+    }
+
+    public static long factorial(int n) {
+        if (n < 0)
+            throw new IllegalArgumentException("Factorial cannot be computed for negative numbers.");
+        
+        long result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
+    public static boolean isPrime(int n) {
+        if (n <= 1)
+            return false;
+        
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0)
+                return false;
+        }
+        return true;
+    }
+
+    public static long sumOfPrimes(int n) {
+        long sum = 0;
+        for (int i = 2; i <= n; i++) {
+            if (isPrime(i))
+                sum += i;
+        }
+        return sum;
+    }
+
+    public static boolean isArmstrongNumber(int n) {
+        int sum = 0;
+        int original = n;
+        while (n != 0) {
+            int digit = n % 10;
+            sum += Math.pow(digit, 3);
+            n /= 10;
+        }
+        return sum == original;
+    }
+
+    public static int reverseNumber(int n) {
+        int reversed = 0;
+        while (n != 0) {
+            int digit = n % 10;
+            reversed = reversed * 10 + digit;
+            n /= 10;
+        }
+        return reversed;
+    }
+
+    public static int decimalToBinary(int n) {
+        return Integer.parseInt(Integer.toBinaryString(n));
+    }
+
+    public static int binaryToDecimal(int n) {
+        return Integer.parseInt(Integer.toString(n, 10));
+    }
+
+    public static int getSumOfNfibos(int n) {
+        if (n <= 0)
+            return 0;
+        
+        int fib1 = 0;
+        int fib2 = 1;
+        int sum = fib1 + fib2;
+        for (int i = 3; i <= n; i++) {
+            int fib = fib1 + fib2;
+            sum += fib;
+            fib1 = fib2;
+            fib2 = fib;
+        }
+        return sum;
+    }
+
+    public static boolean isPalindromeNumber(int n) {
+        return n == reverseNumber(n);
+    }
+}

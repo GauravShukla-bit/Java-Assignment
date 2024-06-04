@@ -1,0 +1,27 @@
+import java.io.*;
+
+public class FileCopy2 {
+    public static void main(String[] args) {
+        try {
+            Thread fileCopy1Thread = new Thread(() -> {
+                // Your existing FileCopy1 code here
+            });
+            fileCopy1Thread.start();
+            fileCopy1Thread.join(); // Wait for FileCopy1 to complete
+
+            FileInputStream input = new FileInputStream("temp.bmp");
+            FileOutputStream output = new FileOutputStream("image2.bmp");
+
+            int data;
+            while ((data = input.read()) != -1) {
+                output.write(data);
+            }
+
+            input.close();
+            output.close();
+            System.out.println("FileCopy2: temp.bmp copied to image2.bmp");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
