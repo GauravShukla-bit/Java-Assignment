@@ -1,0 +1,53 @@
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FileSearchUtility {
+
+    public static List<String> searchFile(String directoryPath, String fileName) {
+        List<String> result = new ArrayList<>();
+        File directory = new File(directoryPath);
+
+        if (!directory.exists() || !directory.isDirectory()) {
+            System.out.println("The provided path is not a valid directory.");
+            return result;
+        }
+
+        searchDirectory(directory, fileName, result);
+        return result;
+    }
+
+    private static void searchDirectory(File directory, String fileName, List<String> result) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    searchDirectory(file, fileName, result);
+                } else if (fileName.equalsIgnoreCase(file.getName())) {
+                    result.add(file.getAbsolutePath());
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        if (args.length != 2) {
+            System.out.println("Usage: java FileSearchUtility <directory-path> <file-name>");
+            return;
+        }
+
+        String directoryPath = args[0];
+        String fileName = args[1];
+
+        List<String> foundFiles = searchFile(directoryPath, fileName);
+
+        if (foundFiles.isEmpty()) {
+            System.out.println("File not found.");
+        } else {
+            System.out.println("File found at:");
+            for (String filePath : foundFiles) {
+                System.out.println(filePath);
+            }
+        }
+    }
+}

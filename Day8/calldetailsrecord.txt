@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class CallDetailRecordManager {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<CallDetailRecord> callRecords = new ArrayList<>();
+
+        while (true) {
+            System.out.print("Enter From Number: ");
+            int fromNumber = scanner.nextInt();
+
+            System.out.print("Enter To Number: ");
+            int toNumber = scanner.nextInt();
+
+            System.out.print("Enter Duration (in minutes): ");
+            float duration = scanner.nextFloat();
+
+            CallDetailRecord record = new CallDetailRecord(fromNumber, toNumber, duration);
+            callRecords.add(record);
+
+            System.out.print("Do you want to enter another record? (Yes/No): ");
+            String response = scanner.next();
+            if (response.equalsIgnoreCase("No")) {
+                break;
+            }
+        }
+
+        saveCallRecords(callRecords);
+        System.out.println("Call records have been saved to ChargeRecord.ser");
+
+        scanner.close();
+    }
+
+    private static void saveCallRecords(List<CallDetailRecord> callRecords) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("ChargeRecord.ser"))) {
+            oos.writeObject(callRecords);
+        } catch (IOException e) {
+            System.out.println("Error occurred while saving call records.");
+            e.printStackTrace();
+        }
+    }
+}
